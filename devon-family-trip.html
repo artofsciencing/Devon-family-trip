@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devon — Moors, Coast & Cream Teas</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #c45c30;
+    --terracotta-light: #e07848;
+    --cream: #fdf8f0;
+    --warm-white: #faf4e8;
+    --sand: #e8d8b8;
+    --sand-dark: #d4c09a;
+    --moor: #5a7a3a;
+    --moor-dark: #3a5220;
+    --sea: #3a7898;
+    --sea-light: #5a98b8;
+    --sea-pale: #d0e8f4;
+    --heather: #8a4878;
+    --sunset: #e8903a;
+    --ink: #1e1810;
+    --stone: #7a6850;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #fdf0e0 0%, #f8e0c8 30%, #f0d0b0 60%, #e8c898 100%);
+    padding: 70px 64px 80px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+
+  /* Watercolour wash blobs */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 80% 20%, rgba(58,120,152,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 400px 300px at 10% 70%, rgba(90,122,58,0.1) 0%, transparent 55%),
+      radial-gradient(ellipse 300px 200px at 60% 80%, rgba(196,92,48,0.08) 0%, transparent 50%);
+  }
+
+  /* Rolling hills silhouette */
+  .hills {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 180px;
+    opacity: 0.08;
+  }
+
+  .hero-top { position: relative; z-index: 1; }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--terracotta);
+    margin-bottom: 24px;
+    display: block;
+    animation: waft 0.8s ease both 0.1s;
+  }
+
+  .hero h1 {
+    font-size: clamp(60px, 11vw, 138px);
+    font-weight: 900;
+    line-height: 0.88;
+    color: var(--ink);
+    letter-spacing: -4px;
+    animation: waft 0.8s ease both 0.2s;
+  }
+  .hero h1 .script {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.42em;
+    letter-spacing: -1px;
+    color: var(--terracotta);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .hero h1 .sub {
+    display: block;
+    font-size: 0.28em;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--stone);
+    letter-spacing: 0px;
+    margin-top: 12px;
+  }
+
+  .hero-bottom {
+    position: relative; z-index: 1;
+    display: flex; align-items: flex-end;
+    justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  }
+
+  .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; animation: waft 0.8s ease both 0.35s; }
+  .pill {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(196,92,48,0.2);
+    color: var(--ink);
+    padding: 7px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.5px;
+  }
+
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; animation: waft 0.8s ease both 0.45s; }
+  .hs .n {
+    font-size: 40px; font-weight: 900;
+    color: var(--terracotta); display: block;
+    line-height: 1; letter-spacing: -1px;
+  }
+  .hs .l {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--stone);
+  }
+
+  /* ── SEASON BANNER ── */
+  .season {
+    background: var(--moor);
+    padding: 16px 64px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13.5px; color: white; flex-wrap: wrap;
+  }
+  .season strong { font-weight: 700; }
+  .season span { color: rgba(255,255,255,0.6); font-family: 'DM Mono', monospace; font-size: 12px; }
+
+  /* ── TRANSPORT ── */
+  .travel {
+    background: var(--warm-white);
+    border-bottom: 2px solid var(--sand);
+    padding: 20px 64px;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .tr { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .tc { font-size: 20px; font-weight: 700; color: var(--ink); }
+  .ta { color: var(--sand-dark); }
+  .td { font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--stone); }
+  .tls { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tb {
+    padding: 9px 18px; font-family: 'DM Mono', monospace;
+    font-size: 10.5px; font-weight: 400; letter-spacing: 0.5px;
+    text-decoration: none; text-transform: uppercase; transition: all 0.2s;
+  }
+  .tb.s { background: var(--terracotta); color: white; }
+  .tb.s:hover { background: var(--terracotta-light); }
+  .tb.g { border: 1px solid var(--sand-dark); color: var(--stone); }
+  .tb.g:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  /* ── STAY ── */
+  .stay {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 80px 64px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start;
+  }
+  .ey {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--terracotta-light);
+    margin-bottom: 14px; display: block;
+  }
+  .stay h2 { font-size: 44px; font-weight: 700; line-height: 1.05; margin-bottom: 16px; }
+  .stay p { font-size: 14px; color: rgba(253,248,240,0.6); line-height: 1.85; margin-bottom: 20px; }
+  .sg { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.06); }
+  .sgi { background: rgba(255,255,255,0.03); padding: 16px 18px; }
+  .sgi .v { font-size: 26px; font-weight: 700; color: var(--sunset); display: block; }
+  .sgi .k { font-family: 'DM Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 1px; color: rgba(253,248,240,0.3); }
+  .sbs { display: flex; flex-direction: column; gap: 10px; }
+  .sbt {
+    display: block; text-align: center; padding: 13px 22px;
+    text-decoration: none; font-family: 'DM Mono', monospace;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.5px;
+    text-transform: uppercase; transition: all 0.2s;
+  }
+  .sbt.p { background: var(--moor); color: white; }
+  .sbt.p:hover { background: var(--moor-dark); }
+  .sbt.o { border: 1px solid rgba(255,255,255,0.12); color: rgba(253,248,240,0.5); }
+  .sbt.o:hover { border-color: var(--terracotta-light); color: var(--terracotta-light); }
+
+  /* ── DAYS ── */
+  .days { padding: 80px 64px; }
+
+  .day-block { margin-bottom: 80px; }
+
+  .dh {
+    display: grid; grid-template-columns: 88px 1fr;
+    gap: 20px; align-items: baseline;
+    margin-bottom: 28px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--sand);
+  }
+  .dn {
+    font-size: 76px; font-weight: 900;
+    color: var(--sand); line-height: 1;
+  }
+  .dh h2 { font-size: 26px; font-weight: 700; color: var(--ink); }
+  .dh p { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--stone); margin-top: 4px; }
+
+  .stops { display: flex; flex-direction: column; gap: 2px; }
+
+  .stop {
+    background: var(--warm-white);
+    display: grid; grid-template-columns: 68px 1fr 130px;
+    border: 1px solid var(--sand);
+    transition: all 0.18s;
+  }
+  .stop:hover {
+    border-color: var(--terracotta);
+    transform: translateX(3px);
+  }
+
+  .stc {
+    background: var(--sea-pale);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 18px 6px; border-right: 1px solid var(--sand);
+  }
+  .stc .t { font-size: 17px; font-weight: 700; color: var(--sea); line-height: 1; }
+  .stc .ap { font-family: 'DM Mono', monospace; font-size: 8.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--stone); }
+
+  .sb { padding: 18px 22px; }
+  .sb h3 { font-size: 17px; font-weight: 700; margin-bottom: 5px; color: var(--ink); }
+  .sb p { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--stone); line-height: 1.65; }
+  .tags { display: flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'DM Mono', monospace; font-size: 9.5px;
+    padding: 3px 9px; letter-spacing: 0.3px;
+  }
+  .tf { background: #e6f0e0; color: var(--moor-dark); }
+  .tp { background: #fdf0e4; color: var(--terracotta); }
+  .th { background: #e0eef8; color: var(--sea); }
+  .tfd { background: #fef8e8; color: #806020; }
+  .tv { background: #f4ecf8; color: var(--heather); }
+
+  .ctc {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 14px; border-left: 1px solid var(--sand);
+  }
+  .cta {
+    display: inline-block; padding: 8px 14px;
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    text-decoration: none; letter-spacing: 0.5px;
+    text-transform: uppercase; white-space: nowrap; transition: all 0.2s;
+  }
+  .cs { background: var(--terracotta); color: white; }
+  .cs:hover { background: var(--terracotta-light); }
+  .cg { border: 1px solid var(--sand-dark); color: var(--stone); }
+  .cg:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  /* Callout banners */
+  .banner {
+    padding: 16px 22px;
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 2px; flex-wrap: wrap;
+  }
+  .bm { background: var(--moor); }
+  .bs { background: var(--sea); }
+  .bt { background: var(--terracotta); }
+  .banner strong { font-size: 13.5px; color: white; font-weight: 700; display: block; font-family: 'Fraunces', serif; }
+  .banner span { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.6); }
+  .banner a {
+    margin-left: auto; background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25); color: white;
+    padding: 7px 14px; text-decoration: none;
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    white-space: nowrap; flex-shrink: 0; transition: background 0.2s;
+  }
+  .banner a:hover { background: rgba(255,255,255,0.22); }
+
+  /* ── BUDGET ── */
+  .budget {
+    background: var(--terracotta);
+    padding: 80px 64px; color: white;
+  }
+  .bi { max-width: 680px; margin: 0 auto; }
+  .budget h2 {
+    font-size: 54px; font-weight: 900;
+    color: white; letter-spacing: -2px; margin-bottom: 40px;
+  }
+  .brow {
+    display: grid; grid-template-columns: 1fr auto;
+    padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.15);
+    gap: 20px; align-items: center;
+  }
+  .brow .item { font-family: 'DM Mono', monospace; font-size: 12.5px; color: rgba(255,255,255,0.75); }
+  .brow .amt { font-size: 16px; font-weight: 700; color: white; text-align: right; white-space: nowrap; }
+  .fc {
+    background: rgba(90,122,58,0.4); color: #b0e8a0;
+    border: 1px solid rgba(90,122,58,0.5);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; padding: 2px 9px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .brow.total {
+    border: none; border-top: 1px solid rgba(255,255,255,0.3);
+    padding-top: 24px; margin-top: 8px;
+  }
+  .brow.total .item { font-size: 15px; color: white; font-family: 'Fraunces', serif; font-weight: 700; }
+  .brow.total .amt { font-size: 38px; font-weight: 900; color: var(--cream); }
+
+  /* ── TIPS ── */
+  .tips { padding: 80px 64px; background: var(--warm-white); }
+  .ti { max-width: 680px; margin: 0 auto; }
+  .tips h2 { font-size: 48px; font-weight: 900; color: var(--ink); margin-bottom: 36px; letter-spacing: -2px; }
+  .tip-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+  .tip-list li {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 12px; font-family: 'DM Mono', monospace;
+    font-size: 13px; color: var(--stone); line-height: 1.75;
+  }
+  .tip-list li .dot {
+    width: 8px; height: 8px; background: var(--terracotta);
+    border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+  }
+  .tip-list a { color: var(--sea); text-decoration: none; border-bottom: 1px solid rgba(58,120,152,0.3); }
+  .tip-list a:hover { border-color: var(--sea); }
+
+  /* ── CREAM TEA BOX ── */
+  .cream-tea {
+    background: var(--sand);
+    border-left: 4px solid var(--terracotta);
+    padding: 20px 24px; margin-bottom: 2px;
+    font-family: 'DM Mono', monospace; font-size: 12.5px; color: var(--ink);
+    line-height: 1.7;
+  }
+  .cream-tea strong { color: var(--terracotta); font-weight: 600; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(253,248,240,0.3);
+    text-align: center; padding: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  footer a { color: var(--terracotta-light); text-decoration: none; }
+
+  @keyframes waft {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 700px) {
+    .hero, .season, .travel, .stay, .days, .budget, .tips { padding-left: 22px; padding-right: 22px; }
+    .stay { grid-template-columns: 1fr; gap: 36px; }
+    .stop { grid-template-columns: 1fr; }
+    .stc { flex-direction: row; gap: 8px; justify-content: flex-start; padding: 12px 18px; border-right: none; border-bottom: 1px solid var(--sand); }
+    .ctc { border-left: none; border-top: 1px solid var(--sand); justify-content: flex-start; padding: 12px 18px; }
+    .dn { font-size: 52px; }
+    .banner a { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hills" viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#5a7a3a" d="M0,180 L0,100 Q180,40 360,80 Q540,120 720,60 Q900,0 1080,50 Q1260,100 1440,70 L1440,180 Z"/>
+    <path fill="#3a5220" d="M0,180 L0,130 Q200,80 400,110 Q600,140 800,90 Q1000,40 1200,80 Q1320,100 1440,90 L1440,180 Z"/>
+  </svg>
+
+  <div class="hero-top">
+    <span class="hero-tag">// MAY–JUNE · FAMILY OF 3 · 4 NIGHTS</span>
+    <h1>
+      <span class="script">wild moors & golden coast</span>
+      DEVON
+      <span class="sub">Dartmoor · Lydford Gorge · Valley of Rocks · Cream Teas</span>
+    </h1>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hero-pills">
+      <span class="pill">🐎 Dartmoor Ponies</span>
+      <span class="pill">💧 Lydford Gorge</span>
+      <span class="pill">🪨 Haytor Rocks</span>
+      <span class="pill">🌊 Valley of Rocks</span>
+      <span class="pill">🍰 Cream Teas</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><span class="n">2h30</span><span class="l">From London</span></div>
+      <div class="hs"><span class="n">4</span><span class="l">Nights</span></div>
+      <div class="hs"><span class="n">~£350</span><span class="l">Total Budget</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEASON -->
+<div class="season">
+  <span style="font-size:18px">🌿</span>
+  <strong>Why May–June is Devon's finest hour:</strong>
+  <span>Dartmoor ponies with foals · Coastal paths carpeted in wildflowers · Warm enough for beaches · Cream teas in pub gardens · Long golden evenings</span>
+</div>
+
+<!-- TRANSPORT -->
+<div class="travel">
+  <div class="tr">
+    <span class="tc">London Paddington</span>
+    <span class="ta">→</span>
+    <span class="tc">Exeter St Davids</span>
+    <span class="td">&nbsp;~2h 10m · then bus/train into Dartmoor</span>
+  </div>
+  <div class="tls">
+    <a href="https://www.gwr.com/travel-information/travelling-with-us/journey-planner" target="_blank" class="tb s">🚂 Book GWR</a>
+    <a href="https://www.thetrainline.com/train-times/london-paddington-to-exeter-st-davids" target="_blank" class="tb g">Compare Trainline</a>
+  </div>
+</div>
+
+<!-- STAY -->
+<section class="stay">
+  <div>
+    <span class="ey">Base Camp</span>
+    <h2>YHA Dartmoor<br><em style="font-weight:300;font-size:0.75em">Bellever, Dartmoor</em></h2>
+    <p>A beautifully remote YHA hostel sitting in the heart of Dartmoor — rated 4.6★ by 111 guests. Walking trails start from the doorstep, wild ponies graze in the car park, and the stargazing is extraordinary. Private family rooms, kitchen and bar. True Dartmoor immersion.</p>
+    <p style="font-size:12.5px;color:rgba(253,248,240,0.4)"><strong style="color:rgba(253,248,240,0.6)">Getting there:</strong> Bus X9 from Exeter to Moretonhampstead, then Transmoor Link bus. Or taxi from Exeter (~45 min, ~£40). Worth the effort.</p>
+    <div class="sg">
+      <div class="sgi"><span class="v">4.6★</span><span class="k">111 Reviews</span></div>
+      <div class="sgi"><span class="v">~£38</span><span class="k">Per Night</span></div>
+      <div class="sgi"><span class="v">Moor</span><span class="k">From the Door</span></div>
+      <div class="sgi"><span class="v">Ponies!</span><span class="k">Car Park Guests</span></div>
+    </div>
+  </div>
+  <div class="sbs">
+    <a href="https://www.yha.org.uk/hostel/yha-dartmoor" target="_blank" class="sbt p">📋 Book YHA Dartmoor</a>
+    <a href="https://www.hostelworld.com/st/hostels/p/4041/yha-dartmoor/" target="_blank" class="sbt o">Search Hostelworld</a>
+    <a href="https://www.booking.com/hotel/gb/yha-dartmoor.html" target="_blank" class="sbt o">Check Booking.com</a>
+    <a href="https://www.dartmoor.gov.uk/visiting-dartmoor/getting-here/buses" target="_blank" class="sbt o">Dartmoor Bus Routes</a>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section class="days">
+
+  <!-- DAY 1 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">01</div>
+      <div>
+        <h2>Arrive via Exeter & Settle In</h2>
+        <p>Cathedral city, then up onto the moor</p>
+      </div>
+    </div>
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">11:00</span><span class="ap">AM</span></div>
+        <div class="sb">
+          <h3>Train — London Paddington to Exeter</h3>
+          <p>GWR direct to Exeter St Davids in ~2h 10m. Book advance tickets for best prices. Kids under 5 free; 5–15 half price.</p>
+          <div class="tags"><span class="tag tv">~2h 10m</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.gwr.com" target="_blank" class="cta cs">Book Train</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">1:30</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Exeter Cathedral</h3>
+          <p>The longest unbroken medieval vaulted ceiling in England — genuinely jaw-dropping. Allow 1.5 hours. Wander the beautiful Cathedral Close before heading up to the moor. A wonderful free introduction to Devon's history.</p>
+          <div class="tags"><span class="tag tp">~£12 adult · Kids free</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.exeter-cathedral.org.uk/visit/plan-your-visit/" target="_blank" class="cta cs">Book Tickets</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">4:00</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Bus up to YHA Dartmoor — Arrive Bellever</h3>
+          <p>Transmoor Link bus from Exeter into the heart of Dartmoor. Check in, explore the moor on foot before dinner, and look out for ponies at dusk.</p>
+          <div class="tags"><span class="tag tv">~1h 30m by bus</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.dartmoor.gov.uk/visiting-dartmoor/getting-here/buses" target="_blank" class="cta cg">Bus Info</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">02</div>
+      <div>
+        <h2>Haytor & Dartmoor Ponies</h2>
+        <p>The moor's most iconic tor and wild pony herds</p>
+      </div>
+    </div>
+
+    <div class="cream-tea">
+      🐎 <strong>Pony tip:</strong> May–June is foaling season on Dartmoor — you'll very likely see mares with young foals around Haytor and Bellever. Stay calm and give them space; they're wild but used to walkers.
+    </div>
+
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">9:30</span><span class="ap">AM</span></div>
+        <div class="sb">
+          <h3>Haytor Rocks</h3>
+          <p>Dartmoor's most famous granite tor — a dramatic rocky outcrop rising from the open moorland with sweeping 360° views across Devon. The walk up is manageable for all ages (30 min from the car park). In May, the moor is vivid green with wildflowers and almost certainly ponies grazing nearby. Completely free.</p>
+          <div class="tags"><span class="tag tf">FREE</span><span class="tag th">⭐ Dartmoor Icon</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.dartmoor.gov.uk/visiting-dartmoor/places-to-visit/haytor" target="_blank" class="cta cg">Info</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">12:00</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Picnic on the Moor</h3>
+          <p>Pack a picnic from the YHA kitchen and eat on the open moorland — surrounded by wild Dartmoor ponies, granite boulders and infinite sky. One of the most memorable family lunches you'll ever have.</p>
+          <div class="tags"><span class="tag tf">FREE</span><span class="tag tfd">Bring Picnic</span></div>
+        </div>
+        <div class="ctc"></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">2:00</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Dartmoor Way — Bellever Forest Walk</h3>
+          <p>A gorgeous circular walk from the hostel through Bellever Forest and alongside the East Dart River — one of Devon's most beautiful and accessible moorland walks. Ancient clapper bridges, gnarled oaks, and crystal-clear river pools for paddling. Free.</p>
+          <div class="tags"><span class="tag tf">FREE</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.dartmoor.gov.uk/visiting-dartmoor/dartmoor-walks" target="_blank" class="cta cg">Walk Info</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">5:30</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Cream Tea at a Dartmoor Pub</h3>
+          <p>The Warren House Inn is one of Dartmoor's most remote and beloved pubs — fires kept burning year-round, legendary cream teas. Or head to the Dartmeet area for a riverside cream tea. Devon tradition: cream first, then jam (the correct order!).</p>
+          <div class="tags"><span class="tag tfd">Cream Tea ~£7</span></div>
+        </div>
+        <div class="ctc"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">03</div>
+      <div>
+        <h2>Lydford Gorge — Devil's Cauldron</h2>
+        <p>Devon's most dramatic National Trust gorge walk</p>
+      </div>
+    </div>
+
+    <div class="banner bm">
+      <span style="font-size:20px">💧</span>
+      <div>
+        <strong>Lydford Gorge — Book Entry in Advance</strong>
+        <span>National Trust site, timed entry recommended in May–June · Free for NT members</span>
+      </div>
+      <a href="https://www.nationaltrust.org.uk/lydford-gorge" target="_blank">Book NT Tickets →</a>
+    </div>
+
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">9:30</span><span class="ap">AM</span></div>
+        <div class="sb">
+          <h3>Lydford Gorge — Devil's Cauldron & Whitelady Waterfall</h3>
+          <p>Devon's deepest gorge — a 2-mile circular walk through ancient oak woodland past the thundering Devil's Cauldron (a swirling pothole of whitewater) to the 30m Whitelady Waterfall. Genuinely dramatic and unlike anything else in southern England. Allow 3 hours. Rated 4.8★.</p>
+          <div class="tags"><span class="tag tp">~£12 adult · ~£6 child</span><span class="tag th">⭐ Trip Highlight</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.nationaltrust.org.uk/lydford-gorge" target="_blank" class="cta cs">Book Tickets</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">1:00</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Lydford Village & Castle</h3>
+          <p>Tiny Lydford village has a Norman castle (English Heritage — free exterior) and the excellent Castle Inn for lunch. A hugely atmospheric Devon village tucked at the edge of the moor.</p>
+          <div class="tags"><span class="tag tf">Castle exterior FREE</span><span class="tag tfd">Pub Lunch</span></div>
+        </div>
+        <div class="ctc"></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">3:30</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Okehampton & Dartmoor's Northern Edge</h3>
+          <p>Bus to Okehampton — the market town gateway to northern Dartmoor. Explore the ruins of Okehampton Castle (English Heritage, ~£6 adult) set in a wooded gorge, then stroll the town before heading back to the hostel.</p>
+          <div class="tags"><span class="tag tp">~£6 adult · ~£4 child</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.english-heritage.org.uk/visit/places/okehampton-castle/" target="_blank" class="cta cg">Info</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">04</div>
+      <div>
+        <h2>Valley of Rocks & North Devon Coast</h2>
+        <p>Feral goats on clifftops and one of England's most dramatic coastlines</p>
+      </div>
+    </div>
+
+    <div class="banner bs">
+      <span style="font-size:20px">🌊</span>
+      <div>
+        <strong>North Devon Coast Day Trip — Lynton & Lynmouth</strong>
+        <span>Bus from Okehampton/Exeter → Barnstaple → Lynton. Allow a full day on the coast.</span>
+      </div>
+      <a href="https://www.traveline.info" target="_blank">Plan Journey →</a>
+    </div>
+
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">10:00</span><span class="ap">AM</span></div>
+        <div class="sb">
+          <h3>Lynmouth & Cliff Railway</h3>
+          <p>Lynmouth is one of Devon's most beautiful harbour villages, nestled beneath 300m cliffs. Ride the water-powered Cliff Railway (built 1890!) up to Lynton for spectacular views, then walk back down through woods to the harbour. Kids love the Victorian engineering.</p>
+          <div class="tags"><span class="tag tp">~£4 return per person</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.cliffrailwaylynton.co.uk/" target="_blank" class="cta cs">Info & Tickets</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">12:00</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Valley of Rocks</h3>
+          <p>A mile west of Lynton along the coastal path — one of England's most extraordinary landscapes. A dry valley of gigantic sandstone pinnacles rising above the Bristol Channel, home to a herd of wild feral goats who scramble on the cliff faces. Rated 4.9★. Completely free and utterly unforgettable.</p>
+          <div class="tags"><span class="tag tf">FREE</span><span class="tag th">⭐ Rated 4.9★</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.visitdevon.co.uk/listing/valley-of-the-rocks/" target="_blank" class="cta cg">Info</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">2:30</span><span class="ap">PM</span></div>
+        <div class="sb">
+          <h3>Coastal Path Walk — Lynton to Lynmouth</h3>
+          <p>Walk the South West Coast Path back to Lynmouth — dramatic cliffs, sea views and wildflowers in full spring bloom. Stop for a cream tea in Lynmouth before the bus back.</p>
+          <div class="tags"><span class="tag tf">FREE</span><span class="tag tfd">Cream Tea!</span></div>
+        </div>
+        <div class="ctc"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">05</div>
+      <div>
+        <h2>Final Morning & Train Home</h2>
+        <p>One last moorland walk, then London</p>
+      </div>
+    </div>
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">9:00</span><span class="ap">AM</span></div>
+        <div class="sb">
+          <h3>Sunrise Walk on Dartmoor</h3>
+          <p>Step out of the hostel door for a final golden-hour walk across the moor — one of the great free experiences in England. Say goodbye to the ponies.</p>
+          <div class="tags"><span class="tag tf">FREE</span></div>
+        </div>
+        <div class="ctc"></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">11:30</span><span class="ap">AM</span></div>
+        <div class="sb">
+          <h3>Bus to Exeter — Train to London Paddington</h3>
+          <p>Transmoor Link bus back to Exeter (~1h 30m), then GWR direct to London Paddington (~2h 10m). Book return well in advance for cheapest fares.</p>
+          <div class="tags"><span class="tag tv">~3h 40m total</span></div>
+        </div>
+        <div class="ctc"><a href="https://www.gwr.com" target="_blank" class="cta cs">Book Return</a></div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- BUDGET -->
+<section class="budget">
+  <div class="bi">
+    <span class="ey" style="color:rgba(253,248,240,0.6)">Rough Estimate</span>
+    <h2>Budget Breakdown</h2>
+    <div class="brow">
+      <span class="item">🚂 Train — London Paddington ↔ Exeter (2 adults + 1 child)</span>
+      <span class="amt">~£60–100</span>
+    </div>
+    <div class="brow">
+      <span class="item">🚌 Dartmoor/Devon buses (4 days)</span>
+      <span class="amt">~£30</span>
+    </div>
+    <div class="brow">
+      <span class="item">🏡 YHA Dartmoor — 4 nights (family room)</span>
+      <span class="amt">~£120–150</span>
+    </div>
+    <div class="brow">
+      <span class="item">⛪ Exeter Cathedral (2 adults — kids free)</span>
+      <span class="amt">~£24</span>
+    </div>
+    <div class="brow">
+      <span class="item">🪨 Haytor + Bellever Forest + Dartmoor walks</span>
+      <span class="amt"><span class="fc">FREE</span></span>
+    </div>
+    <div class="brow">
+      <span class="item">💧 Lydford Gorge (2 adults + 1 child)</span>
+      <span class="amt">~£30</span>
+    </div>
+    <div class="brow">
+      <span class="item">🏰 Okehampton Castle (2 adults + 1 child)</span>
+      <span class="amt">~£16</span>
+    </div>
+    <div class="brow">
+      <span class="item">🚠 Lynton Cliff Railway (x3)</span>
+      <span class="amt">~£12</span>
+    </div>
+    <div class="brow">
+      <span class="item">🌊 Valley of Rocks</span>
+      <span class="amt"><span class="fc">FREE</span></span>
+    </div>
+    <div class="brow">
+      <span class="item">🍰 Food — cream teas, pubs, picnics, self-catering</span>
+      <span class="amt">~£60–80</span>
+    </div>
+    <div class="brow total">
+      <span class="item">Total Estimate — Family of 3</span>
+      <span class="amt">£352–442</span>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="tips">
+  <div class="ti">
+    <span class="ey">Insider Advice</span>
+    <h2>Devon Wisdom</h2>
+    <ul class="tip-list">
+      <li><span class="dot"></span><span>Book <a href="https://www.gwr.com" target="_blank">GWR train tickets</a> 8+ weeks ahead — London Paddington to Exeter advance fares from ~£15 each way. A Family Railcard (£30/year) saves 33% adult + 60% child every journey.</span></li>
+      <li><span class="dot"></span><span>The <a href="https://www.dartmoor.gov.uk/visiting-dartmoor/getting-here/buses" target="_blank">Transmoor Link bus</a> (services 98/118) runs Exeter–Okehampton–Dartmoor — a Day Rover ticket covers all Dartmoor buses. Essential for car-free travel.</span></li>
+      <li><span class="dot"></span><span><a href="https://www.nationaltrust.org.uk/lydford-gorge" target="_blank">Lydford Gorge NT tickets</a> must be booked online in advance for May–June. Free for National Trust members — an NT family membership (~£130/year) covers this, Dovedale, and many other spots on your bucket list.</span></li>
+      <li><span class="dot"></span><span>Devon cream tea etiquette: <strong>cream first, then jam</strong> (Cornwall does it the other way — you're in Devon!). The Warren House Inn near Postbridge is the most atmospheric spot on the moor.</span></li>
+      <li><span class="dot"></span><span>Wild Dartmoor ponies are protected — don't feed them. In May you'll very likely see mares with foals; keep a respectful distance and they'll often approach you naturally.</span></li>
+      <li><span class="dot"></span><span>YHA Dartmoor is remote — stock up on food in Exeter before heading up. The hostel has a kitchen and sells basic supplies, but the nearest supermarket is ~6 miles away.</span></li>
+      <li><span class="dot"></span><span>Dartmoor weather changes fast even in May — always pack waterproofs. The moor can be sunny at 9am and foggy by noon. Check the <a href="https://www.metoffice.gov.uk/weather/forecast/gcovwjgu3" target="_blank">Met Office Dartmoor forecast</a> each morning.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>Devon Family Trip Guide &nbsp;·&nbsp; May–June 2025 &nbsp;·&nbsp;
+  <a href="https://www.visitdevon.co.uk" target="_blank">visitdevon.co.uk</a> &nbsp;·&nbsp;
+  <a href="https://www.dartmoor.gov.uk" target="_blank">dartmoor.gov.uk</a>
+  </p>
+</footer>
+
+</body>
+</html>
